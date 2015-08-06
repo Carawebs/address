@@ -144,6 +144,8 @@ class Address {
 	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
+	 * $this->loader is an instance of the `Address_Loader` class
+	 * `Address_Admin`
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -155,12 +157,11 @@ class Address {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		// Options Page: pass the `Address_Admin` object to the loader
+		// Options Page: Pass the `Address_Admin` object to the loader
+		// NOTE: This is NOT the WP add_action function
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_setting' );
-
-
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 
 	}
 
