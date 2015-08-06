@@ -49,6 +49,8 @@ class Address_Admin {
 	 */
 	private $option_name;
 
+	private $options;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -61,6 +63,7 @@ class Address_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		$this->option_name = 'carawebs_' . $plugin_name;
+		$this->options = get_option( $this->option_name . '_data' );
 
 	}
 
@@ -146,41 +149,78 @@ class Address_Admin {
 	public function register_settings(){
 
 		register_setting(
-			$this->plugin_name,														// Setting Group Name
-			$this->option_name . '_address_line_1',				// Option name (DB field)
-			array( $this, 'sanitize_address' )						// Sanitization callback
+			$this->plugin_name,											// Setting Group Name
+			$this->option_name . '_data',						// Option name (DB field - this will be an array)
+			array( $this, 'sanitize_address' )			// Sanitization callback
 			);
 
-		register_setting(
+		/*register_setting(
 			$this->plugin_name,
 			$this->option_name . '_address_line_2',
 			array( $this, 'sanitize_address' )
 			);
+			*/
 
 		// Add a General section
 		add_settings_section(
-	    $this->option_name . '_general',										// HTML ID tag for section
+	    $this->option_name . '_data',												// HTML ID tag for section
 	    __( 'Address', 'address' ),													// Section title, shown in a <h3> tag
 	    array( $this, $this->option_name . '_general' ),		// Callback function to echo content/section explanation
 	    $this->plugin_name																	// Settings page to show this on
 		);
 
 		add_settings_field(
-	    $this->option_name . '_address_line_1',												// HTML ID tag for section
-	    __( 'Address Line 1', 'address' ),														// Text printed next to field
-	    array( $this, $this->option_name . '_address_line_1' ),				// Callback function to echo the form field
-	    $this->plugin_name,																						// Settings page to show this
-			$this->option_name . '_general'																// The section, as defined in the add_settings_section() call
+	    $this->option_name . '_address_line_1',										// HTML ID tag for section
+	    __( 'Address Line 1', 'address' ),																// Text printed next to field
+	    array( $this, $this->option_name . '_address_line_1' ),		// Callback function to echo the form field
+	    $this->plugin_name,																				// Settings page to show this
+			$this->option_name . '_data'															// The section, as defined in the add_settings_section() call
 	    //array( 'label_for' => $this->option_name . '_address_line_1' ) // TODO check this!!!!
 		);
 
 		add_settings_field(
 	    $this->option_name . '_address_line_2',
-	    __( 'Address Line 2', 'address_line_2' ),
+	    __( 'Address Line 2', 'address' ),
 	    array( $this, $this->option_name . '_address_line_2' ),
 	    $this->plugin_name,
-			$this->option_name . '_general',
+			$this->option_name . '_data',
 	    array( 'label_for' => $this->option_name . '_address_line_2' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_town',
+	    __( 'Town', 'address' ),
+	    array( $this, $this->option_name . '_town' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_town' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_county',
+	    __( 'County', 'address' ),
+	    array( $this, $this->option_name . '_county' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_county' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_postcode',
+	    __( 'Postcode', 'address' ),
+	    array( $this, $this->option_name . '_postcode' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_postcode' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_country',
+	    __( 'Country', 'address' ),
+	    array( $this, $this->option_name . '_country' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_country' )
 		);
 
 	}
@@ -203,13 +243,16 @@ class Address_Admin {
 	*/
 	public function carawebs_address_address_line_1() {
 
-    echo '<input type="text" name="' . $this->option_name . '_address_line_1' . '" id="' . $this->option_name . '_address_line_1' . '"> '. __( 'address line 1', 'address' );
+		$name = $this->option_name . "_data[address_line_1]";
+		$value = !empty( $this->options['address_line_1'] ) ? esc_html( $this->options['address_line_1'] ): null;
 
-		echo "<pre><h3>Line1:</h3>";
-		var_dump(get_option( $this->option_name . '_address_line_1' ));
-		echo"<h3>Line2:</h3>";
-		var_dump(get_option( $this->option_name . '_address_line_2' ));
-		echo"</pre>";
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_address_line_1" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
 
 	}
 
@@ -219,13 +262,98 @@ class Address_Admin {
 	* @since  1.0.0
 	*/
 	public function carawebs_address_address_line_2() {
-    ?>
-      <fieldset>
-        <label>
-          <input type="text" name="<?php echo $this->option_name . '_address_line_2' ?>" id="<?php echo $this->option_name . '_address_line_2' ?>" placeholder="<?php _e( 'Address Line 2', 'address' ); ?>">
-        </label>
-      </fieldset>
-    <?php
+
+		$name = $this->option_name . "_data[address_line_2]";
+		$value = !empty( $this->options['address_line_2'] ) ? esc_html( $this->options['address_line_2'] ): null;
+
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_address_line_2" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
+
+	}
+
+	/**
+	* Render the text input field for town
+	*
+	* @since  1.0.0
+	*/
+	public function carawebs_address_town() {
+
+		$name = $this->option_name . "_data[town]";
+		$value = !empty( $this->options['town'] ) ? esc_html( $this->options['town'] ): null;
+
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_town" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
+
+	}
+
+	/**
+	* Render the text input field for County
+	*
+	* @since  1.0.0
+	*/
+	public function carawebs_address_county() {
+
+		$name = $this->option_name . "_data[county]";
+		$value = !empty( $this->options['county'] ) ? esc_html( $this->options['county'] ): null;
+
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_county" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
+
+	}
+
+	/**
+	* Render the text input field for Postcode
+	*
+	* @since  1.0.0
+	*/
+	public function carawebs_address_postcode() {
+
+		$name = $this->option_name . "_data[postcode]";
+		$value = !empty( $this->options['postcode'] ) ? esc_html( $this->options['postcode'] ): null;
+
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_postcode" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
+
+	}
+
+	/**
+	* Render the text input field for town
+	*
+	* @since  1.0.0
+	*/
+	public function carawebs_address_country() {
+
+		$name = $this->option_name . "_data[country]";
+		$value = !empty( $this->options['country'] ) ? esc_html( $this->options['country'] ): null;
+
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_country" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
+
 	}
 
 	/**
@@ -235,9 +363,15 @@ class Address_Admin {
 	 * @since  1.0.0
 	 * @return string           Sanitized value
 	 */
-		public function sanitize_address( $address_field ) {
+		public function sanitize_address( $address_fields ) {
 
-			return sanitize_text_field( $address_field );
+			foreach( $address_fields as $field ){
+
+				sanitize_text_field( $field );
+
+			}
+
+			return $address_fields;
 
 		}
 
