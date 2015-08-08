@@ -40,6 +40,9 @@ class Address_Public {
 	 */
 	private $version;
 
+	private $option_name;
+	private $options;
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -51,6 +54,8 @@ class Address_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->option_name = 'carawebs_' . $plugin_name;
+		$this->options = get_option( $this->option_name . '_data' );
 
 	}
 
@@ -97,6 +102,43 @@ class Address_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/address-public.js', array( 'jquery' ), $this->version, false );
+
+	}
+
+	public function define_hooks() {
+
+		//$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+
+	}
+
+	public function register_shortcodes() {
+
+		add_shortcode( 'address', array( $this, 'address_shortcode') );
+		add_shortcode( 'anothershortcode', array( $this, 'another_shortcode_function') );
+
+	}
+
+	public function address_shortcode( $atts ){
+
+		$address = $this->get_address();
+
+		return $address;
+
+	}
+
+	private function get_address() {
+
+		$address_array = $this->options;
+
+		$address = '';
+
+		foreach ( $address_array as $key => $value ){
+
+			$address .= $key . ":" . $value . "<br />";
+
+		}
+
+		return $address;
 
 	}
 
