@@ -2,7 +2,7 @@
 /*
 Plugin Name:			 Address
 Plugin URI:        http://carawebs.com
-Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+Description:       Build address & contact fields as a settings page. Displays address according to schema.org markup guidelines.
 Version:           1.0.0
 Author:            David Egan
 Author URI:        http://dev-notes.eu

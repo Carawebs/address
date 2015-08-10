@@ -119,6 +119,11 @@ class Address {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-address-public.php';
 
+		/**
+		 * The class responsible for defining the widget.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-address-widget.php';
+
 		$this->loader = new Address_Loader();
 
 	}
@@ -162,6 +167,9 @@ class Address {
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
+
+		// Register the widget
+		$this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widget' );
 
 		// Add Settings link to the plugin
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' );

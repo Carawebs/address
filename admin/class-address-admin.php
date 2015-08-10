@@ -421,4 +421,10 @@ class Address_Admin {
 
 		}
 
+	public function register_widget() {
+
+    register_widget( 'Address_Widget' );
+
+	}
+
 }

@@ -41,7 +41,12 @@ class Address_Public {
 	private $version;
 
 	private $option_name;
-	private $options;
+
+	/**
+	 * This is a static property, so it can be accessed outside the class.
+	 * @var [type]
+	 */
+	private static $options;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -55,7 +60,7 @@ class Address_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		$this->option_name = 'carawebs_' . $plugin_name;
-		$this->options = get_option( $this->option_name . '_data' );
+		self::$options = get_option( $this->option_name . '_data' );
 
 	}
 
@@ -118,22 +123,29 @@ class Address_Public {
 
 	}
 
-	public function address_shortcode( $atts ){
+	public static function address_shortcode( $atts ){
 
-		$address = $this->get_address();
+		$address = self::get_address();
 
-		return $address;
+		//return $address;
+
+		// Create a hook
+		return apply_filters( 'carawebs_address_shortcode_html', $address );
 
 	}
 
-	private function get_address() {
+	public static function get_address() {
 
-		$address = $this->options;
-		ob_start()
+		//$address = $this->options; // If it isn't static!
+		$address = self::$options;
+
+		//$title = !empty( $address['business_name'] ) ? '<h3><span itemprop="name">' . $address['business_name'] . '</span></h3>' : null;
+
+		ob_start();
 
 		?>
 		<?= !empty( $address['business_name'] ) ? '<h3><span itemprop="name">' . $address['business_name'] . '</span></h3>' : null; ?>
-    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 		 <?= !empty( $address['address_line_1'] ) ? '<span itemprop="streetAddress">' . $address['address_line_1'] . '</span><br />' : null; ?>
 		 <?= !empty( $address['address_line_2'] ) ? '<span itemprop="streetAddress">' . $address['address_line_2'] . '</span><br />' : null; ?>
 		 <?= !empty( $address['town'] ) ? '<span itemprop="addressLocality">' . $address['town'] . '</span><br />' : null; ?>
