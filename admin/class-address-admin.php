@@ -156,10 +156,11 @@ class Address_Admin {
 
 		/*register_setting(
 			$this->plugin_name,
-			$this->option_name . '_address_line_2',
+			$this->option_name . '_name',
 			array( $this, 'sanitize_address' )
 			);
-			*/
+		*/
+
 
 		// Add a General section
 		add_settings_section(
@@ -170,8 +171,17 @@ class Address_Admin {
 		);
 
 		add_settings_field(
+	    $this->option_name . '_business_name',
+	    __( 'Business Name', 'address' ),
+	    array( $this, $this->option_name . '_business_name' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_business_name' )
+		);
+
+		add_settings_field(
 	    $this->option_name . '_address_line_1',										// HTML ID tag for section
-	    __( 'Address Line 1', 'address' ),																// Text printed next to field
+	    __( 'Address Line 1', 'address' ),												// Text printed next to field
 	    array( $this, $this->option_name . '_address_line_1' ),		// Callback function to echo the form field
 	    $this->plugin_name,																				// Settings page to show this
 			$this->option_name . '_data'															// The section, as defined in the add_settings_section() call
@@ -233,6 +243,26 @@ class Address_Admin {
 	public function carawebs_address_general() {
 
   echo '<p>' . __( 'Please change the settings accordingly.', 'address' ) . '</p>';
+
+	}
+
+	/**
+	* Render the text input field for the business name
+	*
+	* @since  1.0.0
+	*/
+	public function carawebs_address_business_name() {
+
+		$name = $this->option_name . "_data[business_name]";
+		$value = !empty( $this->options['business_name'] ) ? esc_html( $this->options['business_name'] ): null;
+
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_name" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
 
 	}
 
@@ -372,6 +402,22 @@ class Address_Admin {
 			}
 
 			return $address_fields;
+
+		}
+
+		public function add_action_links( $links ){
+
+			$options_link = $this->option_name . '_' . $this->plugin_name;
+
+			$settings_link = [
+	    	'<a href="' . admin_url( 'options-general.php?page=' . $options_link ) . '">' . __('Settings', $this->plugin_name) . '</a>',
+				'<a href="http://carawebs.com" target="_blank">More plugins by Carawebs</a>'
+			];
+	   return array_merge(  $settings_link, $links );
+
+			//$links[] = '<a href="'. esc_url( get_admin_url(null, 'options-general.php?page=gpaisr') ) .'">Settings</a>';
+			//$links[] = '<a href="http://wp-buddy.com" target="_blank">More plugins by WP-Buddy</a>';
+			//return $links;
 
 		}
 
