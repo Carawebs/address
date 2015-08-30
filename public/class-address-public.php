@@ -119,15 +119,13 @@ class Address_Public {
 	public function register_shortcodes() {
 
 		add_shortcode( 'address', array( $this, 'address_shortcode') );
-		add_shortcode( 'anothershortcode', array( $this, 'another_shortcode_function') );
+		//add_shortcode( 'anothershortcode', array( $this, 'another_shortcode_function') );
 
 	}
 
 	public static function address_shortcode( $atts ){
 
 		$address = self::get_address();
-
-		//return $address;
 
 		// Create a hook
 		return apply_filters( 'carawebs_address_shortcode_html', $address );
@@ -136,13 +134,10 @@ class Address_Public {
 
 	public static function get_address() {
 
-		//$address = $this->options; // If it isn't static!
 		$address = self::$options;
 
-		//$title = !empty( $address['business_name'] ) ? '<h3><span itemprop="name">' . $address['business_name'] . '</span></h3>' : null;
-
 		ob_start();
-
+		do_action( 'carawebs_before_address' );
 		?>
 		<?= !empty( $address['business_name'] ) ? '<h3><span itemprop="name">' . $address['business_name'] . '</span></h3>' : null; ?>
     <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
@@ -154,7 +149,7 @@ class Address_Public {
 		 <?= !empty( $address['postcode'] ) ? '<span itemprop="postalCode">' . $address['postcode'] . '</span>' : null; ?>
     </div>
 		<?php
-
+		do_action( 'carawebs_after_address' );
 		return ob_get_clean();
 
 	}

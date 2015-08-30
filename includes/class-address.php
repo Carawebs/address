@@ -122,7 +122,7 @@ class Address {
 		/**
 		 * The class responsible for defining the widget.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-address-widget.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-address-widget.php';
 
 		$this->loader = new Address_Loader();
 

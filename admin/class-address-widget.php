@@ -9,6 +9,8 @@
  *
  * @package    Address
  * @subpackage Address/includes
+ * @see https://codex.wordpress.org/Widgets_API
+ * 
  */
 class Address_Widget extends WP_Widget {
 
@@ -38,7 +40,7 @@ class Address_Widget extends WP_Widget {
 		if ( ! empty( $instance['title'] ) ) {
 
 			echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-      
+
 		}
 
     echo Address_Public::get_address();
