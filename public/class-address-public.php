@@ -71,18 +71,6 @@ class Address_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Address_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Address_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/address-public.css', array(), $this->version, 'all' );
 
 	}
@@ -94,25 +82,23 @@ class Address_Public {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Address_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Address_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/address-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
 	public function define_hooks() {
 
-		//$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+		//$this->loader->add_action( 'carawebs_address', $plugin_public, 'address_action' );
+
+	}
+
+	public function the_address(){
+
+		$address = self::get_address();
+		echo $address;
+
+		// Create a hook
+		//echo apply_filters( 'filter_carawebs_address', $address );
 
 	}
 

@@ -195,6 +195,7 @@ class Address {
 		// Register Shortcodes
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+		$this->loader->add_action( 'carawebs_address', $plugin_public, 'the_address' );
 
 	}
 
