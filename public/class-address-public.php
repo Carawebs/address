@@ -118,24 +118,77 @@ class Address_Public {
 
 	}
 
+	/**
+	 * Return a properly formatted HTML block for the address.
+	 *
+	 * 'carawebs_address_data' Allows the address data array to be filtered
+	 *
+	 * @since    1.0.0
+	 * @see http://schema.org
+	 *
+	 * @return string HTML address block, with schema.org properies.
+	 */
 	public static function get_address() {
 
-		$address = self::$options;
+		// Filter the address data array
+		// -------------------------------------------------------------------------
+		$address = apply_filters( 'carawebs_address_data', self::$options );
+
+		$business_name		= !empty( $address['business_name'] ) ? $address['business_name'] : null;
+		$address_line_1		= !empty( $address['address_line_1'] ) ? $address['address_line_1'] : null;
+		$address_line_2		= !empty( $address['address_line_2'] ) ? $address['address_line_2'] : null;
+		$town							= !empty( $address['town'] ) ? $address['town'] : null;
+		$county						= !empty( $address['county'] ) ? $address['county'] : null;
+		$country					= !empty( $address['country'] ) ? $address['country'] : null;
+		$postcode					= !empty( $address['postcode'] ) ? $address['postcode'] : null;
+
 
 		ob_start();
+
+		// Action hook before the address
+		// -------------------------------------------------------------------------
 		do_action( 'carawebs_before_address' );
-		?>
-		<?= !empty( $address['business_name'] ) ? '<h3><span itemprop="name">' . $address['business_name'] . '</span></h3>' : null; ?>
-    <div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-		 <?= !empty( $address['address_line_1'] ) ? '<span itemprop="streetAddress">' . $address['address_line_1'] . '</span><br />' : null; ?>
-		 <?= !empty( $address['address_line_2'] ) ? '<span itemprop="streetAddress">' . $address['address_line_2'] . '</span><br />' : null; ?>
-		 <?= !empty( $address['town'] ) ? '<span itemprop="addressLocality">' . $address['town'] . '</span><br />' : null; ?>
-		 <?= !empty( $address['county'] ) ? '<span itemprop="addressLocality">' . $address['county'] . '</span><br />' : null; ?>
-		 <?= !empty( $address['country'] ) ? '<span itemprop="addressCountry">' . $address['country'] . '</span><br />' : null; ?>
-		 <?= !empty( $address['postcode'] ) ? '<span itemprop="postalCode">' . $address['postcode'] . '</span>' : null; ?>
-    </div>
-		<?php
+
+		// The address block - each line can be filtered
+		// -------------------------------------------------------------------------
+		echo apply_filters( 'carawebs_address_open_div', '<div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' );
+
+		if( !empty( $business_name ) ){
+			echo apply_filters( 'carawebs_address_business_name', '<h3><span itemprop="name">' . $business_name . '</span></h3>', $business_name );
+		}
+
+		if( !empty( $address_line_1 ) ){
+			echo apply_filters( 'carawebs_address_line_1', '<span itemprop="streetAddress">' . $address_line_1 . '</span><br />', $address_line_1 );
+		}
+
+		if( !empty( $address_line_2 ) ){
+			echo apply_filters( 'carawebs_address_line_2', '<span itemprop="streetAddress">' . $address_line_2 . '</span><br />', $address_line_2 );
+		}
+
+		if( !empty( $town ) ){
+			echo apply_filters( 'carawebs_address_town', '<span itemprop="addressLocality">' . $town . '</span><br />', $town );
+		}
+
+		if( !empty( $county ) ){
+			echo apply_filters( 'carawebs_address_county', '<span itemprop="addressLocality">' . $address['county'] . '</span><br />', $county );
+		}
+
+		if( !empty( $country ) ){
+			echo apply_filters( 'carawebs_address_country', '<span itemprop="addressCountry">' . $country . '</span><br />', $country );
+		}
+
+		if( !empty( $postcode ) ){
+			echo apply_filters( 'carawebs_address_postcode', '<span itemprop="postalCode">' . $postcode . '</span>', $postcode );
+		}
+
+		// Filter the closing tag
+		// -------------------------------------------------------------------------
+		apply_filters( 'carawebs_address_close_div', "</div>" );
+
+		// Action hook after the address
+		// -------------------------------------------------------------------------
 		do_action( 'carawebs_after_address' );
+
 		return ob_get_clean();
 
 	}
