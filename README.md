@@ -17,7 +17,7 @@ Uses the [WP Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin
 
 ##Available Filters
 
-|Name of Filter Hook|Value available to filter function|Variables available|
+|Filter Hook|Value |Variables|
 |----|----|----|
 |`'carawebs_address_open_div'`|`'<div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">'`|-|
 |`'carawebs_address_business_name'`|`'<h3><span itemprop="name">' . $business_name . '</span></h3>'`|`$business_name`|
