@@ -159,8 +159,8 @@ class Address {
 
 		$plugin_admin = new Address_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		// Options Page: Pass the `Address_Admin` object to the loader
 		// NOTE: This is NOT the WP add_action function
@@ -169,9 +169,11 @@ class Address {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 
 		// Register the widget
+		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'widgets_init', $plugin_admin, 'register_widget' );
 
 		// Add Settings link to the plugin
+		// -------------------------------------------------------------------------
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' );
 		$this->loader->add_filter( 'plugin_action_links_' . $plugin_basename, $plugin_admin, 'add_action_links' );
 
@@ -189,12 +191,15 @@ class Address {
 
 		$plugin_public = new Address_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		// Register Shortcodes
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
+
+		// Add an action hook
+		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'carawebs_address', $plugin_public, 'the_address' );
 
 	}

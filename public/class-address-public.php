@@ -86,22 +86,26 @@ class Address_Public {
 
 	}
 
-	public function define_hooks() {
-
-		//$this->loader->add_action( 'carawebs_address', $plugin_public, 'address_action' );
-
-	}
-
+	/**
+	 * Echo the address
+	 *
+	 * @since    1.0.0
+	 *
+	 * @return string Address HTML
+	 */
 	public function the_address(){
 
 		$address = self::get_address();
 		echo $address;
 
-		// Create a hook
-		//echo apply_filters( 'filter_carawebs_address', $address );
-
 	}
 
+	/**
+	 * Register_shortcodes
+	 *
+	 * @since		1.0.0
+	 *
+	 */
 	public function register_shortcodes() {
 
 		add_shortcode( 'address', array( $this, 'address_shortcode') );
@@ -109,11 +113,19 @@ class Address_Public {
 
 	}
 
+	/**
+	 * Define basic shortcode for the address.
+	 *
+	 * Callback function returning address HTML to the `add_shortcode` hook.
+	 *
+	 * @since		1.0.0
+	 * @param  [type] $atts [description]
+	 * @return string Returns the address as a HTML block
+	 */
 	public static function address_shortcode( $atts ){
 
 		$address = self::get_address();
 
-		// Create a hook
 		return apply_filters( 'carawebs_address_shortcode_html', $address );
 
 	}

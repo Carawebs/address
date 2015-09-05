@@ -15,6 +15,39 @@ Uses the [WP Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin
 4. Place `<?php do_action('carawebs_address'); ?>` in your templates
 5. Use the shortcode `[address]` in the content area
 
+##Filters
+The opening and closing tags are filterable, along with each line of the address:
+
+The `add_filter( 'carawebs_address_open_div', 'callback' );` receives `'<div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">'` to be filtered.
+
+The `add_filter( 'carawebs_address_close_div', 'callback' );` receives `'</div>'` to be filtered.
+
+|Name of Filter Hook|Value available to filter function|Variables|
+|-|-|-|
+|`carawebs_address_business_name`|`'<h3><span itemprop="name">' . $business_name . '</span></h3>'`|`$business_name`|
+|`carawebs_address_line_1`|`'<span itemprop="streetAddress">' . $address_line_1 . '</span><br />'`|`$address_line_1`|
+|`carawebs_address_line_2`|`'<span itemprop="streetAddress">' . $address_line_2 . '</span><br />'`|`$address_line_2`|
+|`carawebs_address_town`|`'<span itemprop="addressLocality">' . $town . '</span><br />'`|`$town`|
+|`carawebs_address_county`|`'<span itemprop="addressLocality">' . $address['county'] . '</span><br />'`|`$county`|
+|`carawebs_address_country`|`'<span itemprop="addressCountry">' . $country . '</span><br />'`|`$country`|
+|`carawebs_address_postcode`|`'<span itemprop="postalCode">' . $postcode . '</span>'`|`$postcode`|
+
+##Example Filter
+The 'carawebs_address_business_name' filter receives two parameters: `'<h3><span itemprop="name">' . $business_name . '</span></h3>'` and $business_name.
+
+An sample use of this filter within a theme would be:
+
+~~~
+<?php
+add_filter( 'carawebs_address_business_name', __NAMESPACE__ . '\\filter_business_name', 1, 2 );
+
+function filter_business_name( $content, $business_name ){
+
+	return '<h4><span itemprop="name">' . $business_name . '</span></h4>';
+
+}
+~~~
+
 ## Changelog
 
 = 1.0 =

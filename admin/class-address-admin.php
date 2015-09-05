@@ -367,7 +367,7 @@ class Address_Admin {
 	}
 
 	/**
-	* Render the text input field for town
+	* Render the text input field for country
 	*
 	* @since  1.0.0
 	*/
@@ -405,19 +405,23 @@ class Address_Admin {
 
 		}
 
+		/**
+		 * Add action links to plugins page.
+		 *
+		 * @param array $links Array of links for plugin action links
+		 * @since  1.0.0
+		 * @return string $links Modified array of links for plugin action links
+		 */
 		public function add_action_links( $links ){
 
 			$options_link = $this->option_name . '_' . $this->plugin_name;
 
 			$settings_link = [
 	    	'<a href="' . admin_url( 'options-general.php?page=' . $options_link ) . '">' . __('Settings', $this->plugin_name) . '</a>',
-				'<a href="http://carawebs.com" target="_blank">More plugins by Carawebs</a>'
+				'<a href="http://carawebs.com" target="_blank">Carawebs</a>'
 			];
-	   return array_merge(  $settings_link, $links );
 
-			//$links[] = '<a href="'. esc_url( get_admin_url(null, 'options-general.php?page=gpaisr') ) .'">Settings</a>';
-			//$links[] = '<a href="http://wp-buddy.com" target="_blank">More plugins by WP-Buddy</a>';
-			//return $links;
+	   return array_merge(  $settings_link, $links );
 
 		}
 
