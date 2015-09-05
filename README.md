@@ -50,5 +50,5 @@ function filter_business_name( $content, $business_name ){
 
 ## Changelog
 
-= 1.0 =
+1.0
 * First Commit.
