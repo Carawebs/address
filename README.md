@@ -23,7 +23,7 @@ The `add_filter( 'carawebs_address_open_div', 'callback' );` receives `'<div cla
 The `add_filter( 'carawebs_address_close_div', 'callback' );` receives `'</div>'` to be filtered.
 
 |Name of Filter Hook|Value available to filter function|Variables|
-|-|-|-|
+|----|----|----|
 |`carawebs_address_business_name`|`'<h3><span itemprop="name">' . $business_name . '</span></h3>'`|`$business_name`|
 |`carawebs_address_line_1`|`'<span itemprop="streetAddress">' . $address_line_1 . '</span><br />'`|`$address_line_1`|
 |`carawebs_address_line_2`|`'<span itemprop="streetAddress">' . $address_line_2 . '</span><br />'`|`$address_line_2`|
