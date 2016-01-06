@@ -234,6 +234,15 @@ class Address_Admin {
 	    array( 'label_for' => $this->option_name . '_landline' )
 		);
 
+		add_settings_field(
+	    $this->option_name . '_mobile',
+	    __( 'Mobile Phone Number', 'address' ),
+	    array( $this, 'mobile' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_mobile' )
+		);
+
 	}
 
 	/**
@@ -388,7 +397,7 @@ class Address_Admin {
 	}
 
 	/**
-	* Render the number input field for landline
+	* Render the text input field for landline
 	*
 	* @since  1.0.0
 	*/
@@ -406,6 +415,26 @@ class Address_Admin {
 		echo ob_get_clean();
 
 	}
+
+		/**
+		* Render the text input field for mobile contact number
+		*
+		* @since  1.0.0
+		*/
+		public function mobile() {
+
+			$name = $this->option_name . "_data[mobile]";
+			$value = !empty( $this->options['mobile'] ) ? esc_html( $this->options['mobile'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_mobile" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
 
 	/**
 	 * Sanitize the text position value before being saved to database

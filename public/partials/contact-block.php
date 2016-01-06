@@ -40,7 +40,7 @@ $twitter = "#";
     <li>
       <a class="clickable-phone" href="tel:<?= $landline; ?>">
         Click to Call <?= $landline; ?>
-      </span>
+      </a>
     </li>
   <?php endif; ?>
 </ul>
