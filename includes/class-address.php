@@ -198,9 +198,13 @@ class Address {
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
-		// Add an action hook
+		// Add an action hook for the address block
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'carawebs_address', $plugin_public, 'the_address' );
+
+		// Add an action hook for the contact block
+		// -------------------------------------------------------------------------
+		$this->loader->add_action( 'carawebs_contact', $plugin_public, 'the_contact_details' );
 
 	}
 

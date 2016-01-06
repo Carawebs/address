@@ -154,14 +154,6 @@ class Address_Admin {
 			array( $this, 'sanitize_address' )			// Sanitization callback
 			);
 
-		/*register_setting(
-			$this->plugin_name,
-			$this->option_name . '_name',
-			array( $this, 'sanitize_address' )
-			);
-		*/
-
-
 		// Add a General section
 		add_settings_section(
 	    $this->option_name . '_data',												// HTML ID tag for section
@@ -231,6 +223,15 @@ class Address_Admin {
 	    $this->plugin_name,
 			$this->option_name . '_data',
 	    array( 'label_for' => $this->option_name . '_country' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_landline',
+	    __( 'Landline', 'address' ),
+	    array( $this, $this->option_name . '_landline' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_landline' )
 		);
 
 	}
@@ -380,6 +381,26 @@ class Address_Admin {
 
 		?>
 		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_country" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+		<?php
+
+		echo ob_get_clean();
+
+	}
+
+	/**
+	* Render the number input field for landline
+	*
+	* @since  1.0.0
+	*/
+	public function carawebs_address_landline() {
+
+		$name = $this->option_name . "_data[landline]";
+		$value = !empty( $this->options['landline'] ) ? esc_html( $this->options['landline'] ): null;
+
+		ob_start();
+
+		?>
+		<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_landline" placeholder="<?= $value; ?>" value="<?= $value; ?>">
 		<?php
 
 		echo ob_get_clean();

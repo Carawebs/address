@@ -101,6 +101,20 @@ class Address_Public {
 	}
 
 	/**
+	 * Echo the Contact Block
+	 *
+	 * @since    1.0.1
+	 *
+	 * @return string Contact HTML
+	 */
+	public function the_contact_details(){
+
+		$contact = self::get_contact_details();
+		echo $contact;
+
+	}
+
+	/**
 	 * Register_shortcodes
 	 *
 	 * @since		1.0.0
@@ -154,7 +168,6 @@ class Address_Public {
 		$country					= !empty( $address['country'] ) ? $address['country'] : null;
 		$postcode					= !empty( $address['postcode'] ) ? $address['postcode'] : null;
 
-
 		ob_start();
 
 		// Action hook before the address
@@ -166,7 +179,7 @@ class Address_Public {
 		echo apply_filters( 'carawebs_address_open_div', '<div class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">' );
 
 		if( !empty( $business_name ) ){
-			echo apply_filters( 'carawebs_address_business_name', '<h3><span itemprop="name">' . $business_name . '</span></h3>', $business_name );
+			echo apply_filters( 'carawebs_address_business_name', '<h2><span itemprop="name">' . $business_name . '</span></h2>', $business_name );
 		}
 
 		if( !empty( $address_line_1 ) ){
@@ -195,13 +208,58 @@ class Address_Public {
 
 		// Filter the closing tag
 		// -------------------------------------------------------------------------
-		apply_filters( 'carawebs_address_close_div', "</div>" );
+		echo apply_filters( 'carawebs_address_close_div', "</div>" );
 
 		// Action hook after the address
 		// -------------------------------------------------------------------------
 		do_action( 'carawebs_after_address' );
 
 		return ob_get_clean();
+
+	}
+
+	/**
+	 * Return a properly formatted HTML block for the contact details.
+	 *
+	 * 'carawebs_address_data' Allows the address data array to be filtered
+	 *
+	 * @since    1.0.0
+	 * @see http://schema.org
+	 *
+	 * @return string HTML contact block, with schema.org properies.
+	 */
+	public static function get_contact_details() {
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-helpers.php';
+
+		// Filter the address data array
+		// -------------------------------------------------------------------------
+		$address = apply_filters( 'carawebs_address_data', self::$options );
+
+		$landline	= !empty( $address['landline'] ) ? $address['landline'] : null;
+		$mobile_number = !empty( $address['mobile'] ) ? $address['mobile'] : null;
+		$click_call_mobile = '99';
+		$click_call_landline = null;
+		$facebook = !empty( $address['facebook'] ) ? $address['facebook'] : "#";
+		$twitter = !empty( $address['twitter'] ) ? $address['twitter'] : "#";
+
+		ob_start();
+
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/contact-block.php');
+
+		$contact_block = ob_get_clean();
+
+		$content = apply_filters(
+			'carawebs_contact_block', $contact_block,
+			$landline,
+			$mobile_number,
+			$click_call_mobile,
+			$click_call_landline,
+			$facebook,
+			$twitter
+		);
+
+		echo $content;
 
 	}
 
