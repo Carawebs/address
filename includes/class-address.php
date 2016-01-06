@@ -206,6 +206,14 @@ class Address {
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'carawebs_contact', $plugin_public, 'the_contact_details' );
 
+		// Add an action hook for the mobile number
+		// -------------------------------------------------------------------------
+		$this->loader->add_action( 'carawebs_mobile', $plugin_public, 'the_mobile_number' );
+
+		// Add an action hook for the landline number
+		// -------------------------------------------------------------------------
+		$this->loader->add_action( 'carawebs_landline', $plugin_public, 'the_landline_number' );
+
 	}
 
 	/**

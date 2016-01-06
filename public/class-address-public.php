@@ -114,6 +114,20 @@ class Address_Public {
 
 	}
 
+	public function the_mobile_number(){
+
+		$number = self::get_mobile_number();
+
+		echo $number;
+
+	}
+
+	public function the_landline_number(){
+
+		echo self::get_landline_number();
+
+	}
+
 	/**
 	 * Register_shortcodes
 	 *
@@ -238,8 +252,6 @@ class Address_Public {
 
 		$landline	= !empty( $address['landline'] ) ? $address['landline'] : null;
 		$mobile_number = !empty( $address['mobile'] ) ? $address['mobile'] : null;
-		$click_call_mobile = '99';
-		$click_call_landline = null;
 		$facebook = !empty( $address['facebook'] ) ? $address['facebook'] : "#";
 		$twitter = !empty( $address['twitter'] ) ? $address['twitter'] : "#";
 
@@ -253,13 +265,27 @@ class Address_Public {
 			'carawebs_contact_block', $contact_block,
 			$landline,
 			$mobile_number,
-			$click_call_mobile,
-			$click_call_landline,
 			$facebook,
 			$twitter
 		);
 
 		echo $content;
+
+	}
+
+	public static function get_mobile_number() {
+
+		$mobile_number = !empty( self::$options['mobile'] ) ? self::$options['mobile'] : null;
+
+		return $mobile_number;
+
+	}
+
+	public static function get_landline_number() {
+
+		$landline	= !empty( self::$options['landline'] ) ? self::$options['landline'] : null;
+
+		return $landline;
 
 	}
 
