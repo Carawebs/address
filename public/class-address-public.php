@@ -174,13 +174,13 @@ class Address_Public {
 		// -------------------------------------------------------------------------
 		$address = apply_filters( 'carawebs_address_data', self::$options );
 
-		$business_name		= !empty( $address['business_name'] ) ? $address['business_name'] : null;
-		$address_line_1		= !empty( $address['address_line_1'] ) ? $address['address_line_1'] : null;
-		$address_line_2		= !empty( $address['address_line_2'] ) ? $address['address_line_2'] : null;
-		$town							= !empty( $address['town'] ) ? $address['town'] : null;
-		$county						= !empty( $address['county'] ) ? $address['county'] : null;
-		$country					= !empty( $address['country'] ) ? $address['country'] : null;
-		$postcode					= !empty( $address['postcode'] ) ? $address['postcode'] : null;
+		$business_name		= !empty( $address['business_name'] ) ? esc_html( $address['business_name'] ) : null;
+		$address_line_1		= !empty( $address['address_line_1'] ) ? esc_html( $address['address_line_1'] ) : null;
+		$address_line_2		= !empty( $address['address_line_2'] ) ? esc_html( $address['address_line_2'] ) : null;
+		$town							= !empty( $address['town'] ) ? esc_html( $address['town'] ) : null;
+		$county						= !empty( $address['county'] ) ? esc_html( $address['county'] ) : null;
+		$country					= !empty( $address['country'] ) ? esc_html( $address['country'] ) : null;
+		$postcode					= !empty( $address['postcode'] ) ? esc_html( $address['postcode'] ) : null;
 
 		ob_start();
 
@@ -249,7 +249,6 @@ class Address_Public {
 		// Filter the address data array
 		// -------------------------------------------------------------------------
 		$address = apply_filters( 'carawebs_address_data', self::$options );
-
 		$landline	= !empty( $address['landline'] ) ? $address['landline'] : null;
 		$mobile_number = !empty( $address['mobile'] ) ? $address['mobile'] : null;
 		$facebook = !empty( $address['facebook'] ) ? $address['facebook'] : "#";

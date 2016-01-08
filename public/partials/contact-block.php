@@ -1,10 +1,8 @@
 <?php
 $email = "#";
-$facebook = "#";
 $twitter = "#";
 
 ?>
-
 <ul class="carawebs-address-contact-list">
   <?php if ( !empty( $email ) ): ?>
   <li>
@@ -32,7 +30,7 @@ $twitter = "#";
   <?php if ( !empty ( $landline ) && ! Helpers::is_phone() ): ?>
     <li>
       <span class="nonclick-phone">
-        Call us on: <?= $landline; ?>
+        <?= apply_filters( 'carawebs_address_landline_button', 'Call us: ' . $landline, $landline ); ?>
       </span>
     </li>
   <?php endif; ?>

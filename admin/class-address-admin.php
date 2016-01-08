@@ -176,8 +176,8 @@ class Address_Admin {
 	    __( 'Address Line 1', 'address' ),												// Text printed next to field
 	    array( $this, $this->option_name . '_address_line_1' ),		// Callback function to echo the form field
 	    $this->plugin_name,																				// Settings page to show this
-			$this->option_name . '_data'															// The section, as defined in the add_settings_section() call
-	    //array( 'label_for' => $this->option_name . '_address_line_1' ) // TODO check this!!!!
+			$this->option_name . '_data',															// The section, as defined in the add_settings_section() call
+	    array( 'label_for' => $this->option_name . '_address_line_1' ) // Set the title as "label_for"
 		);
 
 		add_settings_field(
@@ -242,6 +242,43 @@ class Address_Admin {
 			$this->option_name . '_data',
 	    array( 'label_for' => $this->option_name . '_mobile' )
 		);
+
+		add_settings_field(
+	    $this->option_name . '_facebook',
+	    __( 'Facebook', 'address' ),
+	    array( $this, 'facebook' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_facebook' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_twitter',
+	    __( 'Your Twitter Home URL', 'address' ),
+	    array( $this, 'twitter' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_twitter' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_company_no',
+	    __( 'Registered Company Number', 'address' ),
+	    array( $this, 'company_no' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_company_no' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_VAT_no',
+	    __( 'VAT Number (if relevant)', 'address' ),
+	    array( $this, 'VAT_no' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_VAT_no' )
+		);
+
 
 	}
 
@@ -430,6 +467,86 @@ class Address_Admin {
 
 			?>
 			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_mobile" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
+
+		/**
+		* Render the text input field for Facebook field
+		*
+		* @since  1.0.0
+		*/
+		public function facebook() {
+
+			$name = $this->option_name . "_data[facebook]";
+			$value = !empty( $this->options['facebook'] ) ? esc_html( $this->options['facebook'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_facebook" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
+
+		/**
+		* Render the text input field for Facebook field
+		*
+		* @since  1.0.0
+		*/
+		public function twitter() {
+
+			$name = $this->option_name . "_data[twitter]";
+			$value = !empty( $this->options['twitter'] ) ? esc_html( $this->options['twitter'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_twitter" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
+
+		/**
+		* Render the text input field for 'co_number' field
+		*
+		* @since  1.0.0
+		*/
+		public function company_no() {
+
+			$name = $this->option_name . "_data[company_no]";
+			$value = !empty( $this->options['company_no'] ) ? esc_html( $this->options['company_no'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_company_no" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
+
+		/**
+		* Render the text input field for 'VAT_no' field
+		*
+		* @since  1.0.0
+		*/
+		public function VAT_no() {
+
+			$name = $this->option_name . "_data[VAT_no]";
+			$value = !empty( $this->options['VAT_no'] ) ? esc_html( $this->options['VAT_no'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_VAT_no" placeholder="<?= $value; ?>" value="<?= $value; ?>">
 			<?php
 
 			echo ob_get_clean();
