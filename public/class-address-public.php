@@ -137,7 +137,7 @@ class Address_Public {
 	public function register_shortcodes() {
 
 		add_shortcode( 'address', array( $this, 'address_shortcode') );
-		//add_shortcode( 'anothershortcode', array( $this, 'another_shortcode_function') );
+		//add_shortcode( 'addressCTA', array( $this, 'CTA_shortcode') );
 
 	}
 
@@ -155,6 +155,25 @@ class Address_Public {
 		$address = self::get_address();
 
 		return apply_filters( 'carawebs_address_shortcode_html', $address );
+
+	}
+
+	public static function CTA_shortcode( $atts ){
+
+		$CTA = self::get_CTA();
+
+		return apply_filters( 'carawebs_CTA_shortcode_html', $CTA );
+
+	}
+
+	public static function get_CTA(){
+
+		ob_start();
+		?>
+		<p class="lead">Contact Us to Discuss Your Project</p>
+		<?php
+
+		return ob_get_clean();
 
 	}
 
