@@ -1,6 +1,7 @@
 <?php
-$email = "#";
-$twitter = "#";
+/**
+ * 
+ */
 
 ?>
 <ul class="carawebs-address-contact-list">

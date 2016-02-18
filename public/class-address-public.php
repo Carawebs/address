@@ -269,9 +269,10 @@ class Address_Public {
 		// -------------------------------------------------------------------------
 		$address = apply_filters( 'carawebs_address_data', self::$options );
 		$landline	= !empty( $address['landline'] ) ? $address['landline'] : null;
+		$email	= !empty( $address['email'] ) ? $address['email'] : null;
 		$mobile_number = !empty( $address['mobile'] ) ? $address['mobile'] : null;
-		$facebook = !empty( $address['facebook'] ) ? $address['facebook'] : "#";
-		$twitter = !empty( $address['twitter'] ) ? $address['twitter'] : "#";
+		$facebook = !empty( $address['facebook'] ) ? $address['facebook'] : null;
+		$twitter = !empty( $address['twitter'] ) ? $address['twitter'] : null;
 
 		ob_start();
 
