@@ -262,6 +262,24 @@ class Address_Admin {
 		);
 
 		add_settings_field(
+	    $this->option_name . 'pinterest',
+	    __( 'Your Pinterest Home URL', 'address' ),
+	    array( $this, 'pinterest' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_pinterest' )
+		);
+
+		add_settings_field(
+	    $this->option_name . '_skype',
+	    __( 'Your Skype Contact Details', 'address' ),
+	    array( $this, 'skype' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_skype' )
+		);
+
+		add_settings_field(
 	    $this->option_name . '_email',
 	    __( 'The email address to be used as the site contact', 'address' ),
 	    array( $this, 'email' ),
@@ -516,6 +534,46 @@ class Address_Admin {
 
 			?>
 			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_twitter" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
+
+		/**
+		* Render the text input field for Twitter field
+		*
+		* @since  1.0.0
+		*/
+		public function pinterest() {
+
+			$name = $this->option_name . "_data[pinterest]";
+			$value = !empty( $this->options['pinterest'] ) ? esc_html( $this->options['pinterest'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_pinterest" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
+
+		/**
+		* Render the text input field for Twitter field
+		*
+		* @since  1.0.0
+		*/
+		public function skype() {
+
+			$name = $this->option_name . "_data[skype]";
+			$value = !empty( $this->options['skype'] ) ? esc_html( $this->options['skype'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_skype" placeholder="<?= $value; ?>" value="<?= $value; ?>">
 			<?php
 
 			echo ob_get_clean();
