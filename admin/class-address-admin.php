@@ -188,6 +188,15 @@ class Address_Admin {
 	    array( 'label_for' => $this->option_name . '_landline' )
 		);
 
+    add_settings_field(
+	    $this->option_name . '_fax',
+	    __( 'Fax', 'address' ),
+	    array( $this, $this->option_name . '_fax' ),
+	    $this->plugin_name,
+			$this->option_name . '_data',
+	    array( 'label_for' => $this->option_name . '_fax' )
+		);
+
 		add_settings_field(
 	    $this->option_name . '_mobile',
 	    __( 'Mobile Phone Number', 'address' ),
@@ -433,6 +442,26 @@ class Address_Admin {
 		echo ob_get_clean();
 
 	}
+
+  /**
+  * Render the text input field for Fax
+  *
+  * @since  1.0.0
+  */
+  public function carawebs_address_fax() {
+
+    $name = $this->option_name . "_data[fax]";
+    $value = !empty( $this->options['fax'] ) ? esc_html( $this->options['fax'] ): null;
+
+    ob_start();
+
+    ?>
+    <input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_landline" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+    <?php
+
+    echo ob_get_clean();
+
+  }
 
 		/**
 		* Render the text input field for mobile contact number

@@ -214,6 +214,10 @@ class Address {
 		// -------------------------------------------------------------------------
 		$this->loader->add_action( 'carawebs_landline', $plugin_public, 'the_landline_number' );
 
+    // Add an action hook for the Email
+		// -------------------------------------------------------------------------
+		$this->loader->add_action( 'carawebs_email', $plugin_public, 'the_email' );
+
 	}
 
 	/**

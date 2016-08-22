@@ -128,6 +128,12 @@ class Address_Public {
 
 	}
 
+  public function the_email() {
+
+    echo self::get_email();
+
+  }
+
 	/**
 	 * Register_shortcodes
 	 *
@@ -305,6 +311,14 @@ class Address_Public {
 		$landline	= !empty( self::$options['landline'] ) ? self::$options['landline'] : null;
 
 		return $landline;
+
+	}
+
+  public static function get_email() {
+
+		$email	= !empty( self::$options['email'] ) ? self::$options['email'] : null;
+
+		return $email;
 
 	}
 
