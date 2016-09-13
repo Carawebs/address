@@ -251,6 +251,15 @@ class Address_Admin {
 	    array( 'label_for' => $this->option_name . '_email' )
 		);
 
+    add_settings_field(
+      $this->option_name . '_linkedin',
+      __( 'The LinkedIn URL', 'address' ),
+      array( $this, 'linkedin' ),
+      $this->plugin_name,
+      $this->option_name . '_data',
+      array( 'label_for' => $this->option_name . '_linkedin' )
+    );
+
 		add_settings_field(
 	    $this->option_name . '_company_no',
 	    __( 'Registered Company Number', 'address' ),
@@ -577,6 +586,26 @@ class Address_Admin {
 
 			?>
 			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_email" placeholder="<?= $value; ?>" value="<?= $value; ?>">
+			<?php
+
+			echo ob_get_clean();
+
+		}
+
+    /**
+		* Render the text input field for Twitter field
+		*
+		* @since  1.0.0
+		*/
+		public function linkedin() {
+
+			$name = $this->option_name . "_data[linkedin]";
+			$value = !empty( $this->options['linkedin'] ) ? esc_html( $this->options['linkedin'] ): null;
+
+			ob_start();
+
+			?>
+			<input type="text" name="<?= $name; ?>" id="<?= $this->option_name; ?>_linkedin" placeholder="<?= $value; ?>" value="<?= $value; ?>">
 			<?php
 
 			echo ob_get_clean();
