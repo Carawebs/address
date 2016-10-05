@@ -1,4 +1,5 @@
-#Address WordPress Plugin
+Address WordPress Plugin
+========================
 Work in Progress. Use at your own risk.
 
 Adds an option page to add Physical address data to the options table of the database.
@@ -7,7 +8,7 @@ Builds the address data into a HTML block that is properly marked up according t
 
 Uses the [WP Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate).
 
-##Installation
+## Installation
 
 1. Clone this repo to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
@@ -15,7 +16,7 @@ Uses the [WP Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin
 4. Place `<?php do_action('carawebs_address'); ?>` in your templates
 5. Use the shortcode `[address]` in the content area
 
-##Available Filters
+## Available Filters
 
 |Filter Hook|Value |Variables|
 |----|----|----|
@@ -29,7 +30,7 @@ Uses the [WP Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin
 |`'carawebs_address_postcode'`|`'<span itemprop="postalCode">' . $postcode . '</span>'`|`$postcode`|
 |`'carawebs_address_close_div'`|`'</div>'`|-|
 
-##Example Filter
+## Example Filter
 The 'carawebs_address_business_name' filter receives two parameters:
 
 * `'<h3><span itemprop="name">' . $business_name . '</span></h3>'`
