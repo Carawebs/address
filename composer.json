@@ -1,0 +1,24 @@
+{
+  "name": "carawebs/address",
+  "type": "wordpress-plugin",
+  "license": "MIT",
+  "description": "A WordPress plugin which allows users to set address & contact data.",
+  "homepage": "https://github.com/DavidCWebs/address",
+  "authors": [
+    {
+      "name": "David Egan",
+      "email": "david@carawebs.com",
+      "homepage": "http://davidegan.me"
+    }
+  ],
+  "keywords": [
+    "wordpress"
+  ],
+  "support": {
+    "issues": "https://github.com/DavidCWebs/address/issues"
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "composer/installers": "~1.0"
+  }
+}
