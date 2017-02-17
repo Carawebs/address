@@ -15,7 +15,11 @@ Domain Path:       /languages
 namespace Carawebs\Address;
 //
 use Carawebs\Address\Settings\Config;
-use Carawebs\Address\Settings\RegisterNewSetting;
+use Carawebs\Address\Settings\Controller;
+use Carawebs\Address\Settings\OptionsPage;
+use Carawebs\Address\Settings\RegisterFields;
+use Carawebs\Address\Settings\RegisterSection;
+use Carawebs\Address\Settings\RegisterSetting;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 require 'vendor/autoload.php';
@@ -23,18 +27,19 @@ require 'vendor/autoload.php';
 $config = dirname(__FILE__) . '/settings-config.php';
 $settings = new Config($config);
 
-$register = new RegisterNewSetting($settings);
+$controller = new Controller(
+    new Config($config),
+    new RegisterSetting(),
+    new OptionsPage(),
+    new RegisterSection(),
+    new RegisterFields()
+);
 
+//$register = new RegisterNewSetting($settings);
 
-
-
-
-
-
-
-add_action( 'cw_config_action', function() use ($settings, $register) {
-    echo "<h2>\$register</h2>";
-    var_dump($register);
+add_action( 'cw_config_action', function() use ($settings, $controller) {
+    echo "<h2>\$controller</h2>";
+    var_dump($controller);
     echo "<h2>Settings</h2>";
     foreach ($settings->container as $key => $setting) {
         echo "The key is $key and the settings are: <br>";

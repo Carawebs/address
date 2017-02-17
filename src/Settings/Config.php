@@ -11,7 +11,7 @@ class Config implements \ArrayAccess
 
     function __construct( $config)
     {
-        $this->container = include_once $config;
+        $this->container = include $config;
     }
 
     public function offsetExists ($offset) {
