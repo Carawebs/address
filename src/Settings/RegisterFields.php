@@ -12,10 +12,11 @@ class RegisterFields extends Fields
     * @param  array  $args [description]
     * @return [type]       [description]
     */
-    public function setArgs(array $args, $pageSlug)
+    public function setArgs(array $args, $pageSlug, $optionName)
     {
         $this->config = $args;
         $this->pageSlug = $pageSlug;
+        $this->optionName = $optionName;
         return $this;
     }
 
@@ -27,6 +28,7 @@ class RegisterFields extends Fields
     public function setup_fields() {
         foreach ($this->config['fields'] as $value) {
             $args = [
+                'option' => $this->optionName ?? NULL,
                 'type' => $value['type'] ?? NULL,
                 'name' => $value['name'] ?? NULL,
                 'desc' => $value['desc'] ?? NULL,
@@ -38,7 +40,7 @@ class RegisterFields extends Fields
                 $args['title'],
                 [ $this, 'fieldCallback' . ucfirst($args['type']) ],
                 $this->pageSlug,
-                $this->config['id'], // @TODO: Connect this!
+                $this->config['id'],
                 $args
             );
         }

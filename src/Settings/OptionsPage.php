@@ -24,7 +24,7 @@ class OptionsPage extends Page
             __( $this->pageArguments['page_title'], 'textdomain' ), // Page Title
             __( $this->pageArguments['menu_title'], 'textdomain' ), // Menu Title
             $this->pageArguments['capability'],                     // Capability
-            $this->pageArguments['menu_slug'],                      // !
+            $this->pageArguments['menu_slug'],                      // ! Menu slug !
             [$this, 'outputOptionsPage']                            // Callback to render form
         );
 
@@ -37,7 +37,7 @@ class OptionsPage extends Page
             <h2><?= $this->pageArguments['page_title']; ?></h2>
             <form method="post" action="options.php">
                 <?php
-                settings_fields( $this->pageArguments['menu_slug'] );
+                settings_fields( $this->optionGroup ); // Must be the option group defined with `register_setting()`
                 do_settings_sections( $this->pageArguments['menu_slug'] );
                 submit_button();
                 ?>

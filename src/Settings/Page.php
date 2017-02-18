@@ -9,7 +9,8 @@ abstract class Page
 
     public function setPageArgs(array $args)
     {
-        $this->pageArguments = $args;
+        $this->pageArguments = $args['page'];
+        $this->optionGroup = $args['setting']['option_group'];
         return $this;
     }
 

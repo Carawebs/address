@@ -6,16 +6,46 @@ abstract class Fields
 {
 
     public function fieldCallbackText( array $args ) {
-        $value = get_option( $args['name'] );
-        printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />',
-            $args['name'],
-            $args['type'],
-            $args['placeholder'],
-            $value
+        $fieldArgs = $this->createFieldArgs($args);
+        printf( '<input name="%1$s" id="%2$s" type="%3$s" placeholder="%4$s" value="%5$s" />',
+            $fieldArgs['name'],
+            $fieldArgs['id'],
+            $fieldArgs['type'],
+            $fieldArgs['placeholder'],
+            $fieldArgs['value']
         );
-
-        //register_setting( 'carawebs-address-options-page', 'our_first_field' );
         echo ! empty( $args['desc'] ) ? "<p class='description'>{$args['desc']}</p>" : NULL;
     }
+
+    public function fieldCallbackTextarea( array $args ) {
+        $fieldArgs = $this->createFieldArgs($args);
+        printf( '<textarea name="%1$s" id="%2$s" type="%3$s" placeholder="%4$s">%5$s</textarea>',
+            $fieldArgs['name'],
+            $fieldArgs['id'],
+            $fieldArgs['type'],
+            $fieldArgs['placeholder'],
+            $fieldArgs['value']
+        );
+        echo ! empty( $args['desc'] ) ? "<p class='description'>{$args['desc']}</p>" : NULL;
+    }
+
+    /**
+     * Create the specific arguments necessary to populate the field callback.
+     *
+     * @param array $args 'Raw' field arguments
+     */
+    public function createFieldArgs(array $args)
+    {
+        $settings = (array)get_option( $args['option'] );
+        $option = $args['option'];
+        $name = $option . '[' . $args['name'] . ']';
+        $id = $args['name'];
+        $type = $args['type'];
+        $placeholder = $args['placeholder'];
+        $value = $settings[$args['name']] ?? NULL;
+        $value = esc_attr($value);
+        return compact('name', 'id', 'type', 'placeholder', 'value');
+    }
+
 
 }
