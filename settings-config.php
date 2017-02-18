@@ -29,32 +29,53 @@ return [
                         'type' => 'text',
                         'name' => 'address_line_2',
                         'title' => 'Address Line Two',
-                        //'desc' => 'Enter data',
                         'default' => NULL,
                     ],
                     [
                         'type' => 'text',
                         'name' => 'town',
                         'title' => 'Town',
-                        //'desc' => 'Enter data',
                         'default' => NULL,
                     ],
                     [
                         'type' => 'text',
                         'name' => 'county',
                         'title' => 'County',
-                        //'desc' => 'Enter data',
                         'default' => NULL,
                     ],
                     [
                         'type' => 'textarea',
                         'name' => 'description',
                         'title' => 'Description',
-                        //'desc' => 'Enter data',
                         'default' => NULL,
+                    ],
+                    [
+                        'type' => 'select',
+                        'name' => 'chooser',
+                        'title' => 'Chooser',
+                        'default' => NULL,
+                        'multi_options' => [
+                            'One' => 'sygg5253',
+                            'Two' => '56t7hfgu',
+                            'Three' => 'ontgrprt7'
+                        ]
                     ]
                 ]
-            ]
+            ],
+            [
+                'id' => 'prelim',
+                'title' => 'Preliminary Section',
+                'fields' =>[
+                    [
+                        'type' => 'text',
+                        'name' => 'preee',
+                        'title' => 'Test',
+                        //'desc' => 'Enter data',
+                        'default' => NULL,
+                        'placeholder' => 'Type here'
+                    ],
+                ],
+            ],
         ]
     ]
 ];

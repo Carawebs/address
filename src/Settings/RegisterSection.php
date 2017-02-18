@@ -28,7 +28,7 @@ class RegisterSection
 
         add_settings_section(
             $this->sectionArgs['id'],
-            'Example Title',
+            $this->sectionArgs['title'],
             [$this, 'defineSection'],
             $this->pageSlug // THIS MUST BE THE menu_slug AS DEFINED WHEN SETTING UP PAGE.
         );

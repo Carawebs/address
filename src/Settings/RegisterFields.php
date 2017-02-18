@@ -6,11 +6,13 @@ namespace Carawebs\Address\Settings;
 */
 class RegisterFields extends Fields
 {
-
     /**
     * Register a setting.
-    * @param  array  $args [description]
-    * @return [type]       [description]
+    *
+    * @param array  $args The settings array
+    * @param string  $pageSlug The options page slug
+    * @param string  $optionName
+    * @return $this
     */
     public function setArgs(array $args, $pageSlug, $optionName)
     {
@@ -22,18 +24,23 @@ class RegisterFields extends Fields
 
     public function addFields()
     {
-        add_action( 'admin_init', [$this, 'setup_fields'] );
+        add_action( 'admin_init', [$this, 'setupFields'] );
     }
 
-    public function setup_fields() {
+    public function setupFields()
+    {
         foreach ($this->config['fields'] as $value) {
+            if (! $this->isFieldTypeValid($value)) {
+                return;
+            }
             $args = [
                 'option' => $this->optionName ?? NULL,
                 'type' => $value['type'] ?? NULL,
                 'name' => $value['name'] ?? NULL,
                 'desc' => $value['desc'] ?? NULL,
                 'placeholder' => $value['placeholder'] ?? NULL,
-                'title' => $value['title'] ?? NULL
+                'title' => $value['title'] ?? NULL,
+                'multi_options' => $value['multi_options'] ?? NULL
             ];
             add_settings_field(
                 $args['name'],
@@ -46,4 +53,14 @@ class RegisterFields extends Fields
         }
     }
 
+    /**
+     * Check that the type of field is allowed.
+     *
+     * @param  array  $value The field config
+     * @return boolean
+     */
+    private function isFieldTypeValid($value)
+    {
+        return true;
+    }
 }

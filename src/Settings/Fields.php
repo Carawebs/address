@@ -29,6 +29,26 @@ abstract class Fields
         echo ! empty( $args['desc'] ) ? "<p class='description'>{$args['desc']}</p>" : NULL;
     }
 
+    public function fieldCallbackSelect(array $args)
+    {
+        $fieldArgs = $this->createFieldArgs($args);
+        $default = 'one';
+        ob_start();
+        ?>
+        <select name=<?= $fieldArgs['name']; ?> id=<?= $fieldArgs['name']; ?>>
+            <?php
+            foreach ( $fieldArgs['multi_options'] as $text => $value ) {
+                ?>
+                <option <?php selected( $fieldArgs['value'], $value, true ); ?> value="<?= $value; ?>"><?= $text; ?></option>
+                <?php
+            }
+            ?>
+        </select>
+        <?php
+        echo ! empty( $args['desc'] ) ? "<p class='description'>{$args['desc']}</p>" : NULL;
+        echo ob_get_clean();
+    }
+
     /**
      * Create the specific arguments necessary to populate the field callback.
      *
@@ -42,9 +62,10 @@ abstract class Fields
         $id = $args['name'];
         $type = $args['type'];
         $placeholder = $args['placeholder'];
+        $multi_options = $args['multi_options'] ?? NULL;
         $value = $settings[$args['name']] ?? NULL;
         $value = esc_attr($value);
-        return compact('name', 'id', 'type', 'placeholder', 'value');
+        return compact('name', 'id', 'type', 'placeholder', 'value', 'multi_options');
     }
 
 
