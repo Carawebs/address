@@ -4,7 +4,7 @@ namespace Carawebs\Address\Settings;
 /**
 * Control the creation of an Options page (under the Settings menu).
 */
-class OptionsPage extends Page
+class AddOptionsPage extends Page
 {
 
     /**
@@ -24,7 +24,7 @@ class OptionsPage extends Page
             __( $this->pageArguments['page_title'], 'textdomain' ), // Page Title
             __( $this->pageArguments['menu_title'], 'textdomain' ), // Menu Title
             $this->pageArguments['capability'],                     // Capability
-            $this->pageArguments['menu_slug'],                      // ! Menu slug !
+            $this->pageArguments['unique_page_slug'],                      // ! Menu slug !
             [$this, 'outputOptionsPage']                            // Callback to render form
         );
 
@@ -37,8 +37,9 @@ class OptionsPage extends Page
             <h2><?= $this->pageArguments['page_title']; ?></h2>
             <form method="post" action="options.php">
                 <?php
+                var_dump($this->optionGroup);
                 settings_fields( $this->optionGroup ); // Must be the option group defined with `register_setting()`
-                do_settings_sections( $this->pageArguments['menu_slug'] );
+                do_settings_sections( $this->pageArguments['unique_page_slug'] );
                 submit_button();
                 ?>
             </form>

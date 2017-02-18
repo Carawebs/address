@@ -17,7 +17,7 @@ class RegisterSetting extends Page
         register_setting(
             $args['option_group'],
             $args['option_name'],
-            $args['option_args'] ?? NULL
+            $args['option_args']
         );
     }
 

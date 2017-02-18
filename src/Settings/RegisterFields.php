@@ -14,40 +14,51 @@ class RegisterFields extends Fields
     * @param string  $optionName
     * @return $this
     */
-    public function setArgs(array $args, $pageSlug, $optionName)
+    public function setArgs(array $args, $pageSlug)
     {
+        var_dump($args);
         $this->config = $args;
         $this->pageSlug = $pageSlug;
-        $this->optionName = $optionName;
+        //$this->optionName = $args['option_name'];
         return $this;
     }
 
     public function addFields()
     {
+        static $i = 1;
+        // This action is getting the callback method ONCE. Dynamically setting the callback
+        // therefore won't work to register multiple sections.
         add_action( 'admin_init', [$this, 'setupFields'] );
+        var_dump($i);
+        $i ++;
     }
 
+    // This must be ALL Fields from ALL sections!
     public function setupFields()
     {
-        foreach ($this->config['fields'] as $value) {
-            if (! $this->isFieldTypeValid($value)) {
+        foreach ($this->config as $section_id => $field) {
+            var_dump($field);
+            if (! $this->isFieldTypeValid($field)) {
                 return;
             }
+            // Loop through settings fields??
+            // Get all fields from a common group??
             $args = [
                 'option' => $this->optionName ?? NULL,
-                'type' => $value['type'] ?? NULL,
-                'name' => $value['name'] ?? NULL,
-                'desc' => $value['desc'] ?? NULL,
-                'placeholder' => $value['placeholder'] ?? NULL,
-                'title' => $value['title'] ?? NULL,
-                'multi_options' => $value['multi_options'] ?? NULL
+                'type' => $field[0]['type'] ?? NULL,
+                'name' => $field[0]['name'] ?? NULL,
+                'desc' => $field[0]['desc'] ?? NULL,
+                'placeholder' => $field[0]['placeholder'] ?? NULL,
+                'title' => $field[0]['title'] ?? NULL,
+                'multi_options' => $field[0]['multi_options'] ?? NULL
             ];
+            var_dump($args);
             add_settings_field(
                 $args['name'],
                 $args['title'],
                 [ $this, 'fieldCallback' . ucfirst($args['type']) ],
                 $this->pageSlug,
-                $this->config['id'],
+                $section_id, // The section ID
                 $args
             );
         }
@@ -56,10 +67,10 @@ class RegisterFields extends Fields
     /**
      * Check that the type of field is allowed.
      *
-     * @param  array  $value The field config
+     * @param  array  $field The field config
      * @return boolean
      */
-    private function isFieldTypeValid($value)
+    private function isFieldTypeValid($field)
     {
         return true;
     }

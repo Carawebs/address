@@ -41,7 +41,7 @@ class Controller
             $optionName = $value['setting']['option_name'];
             $settingArgs = $value['setting'];
             $sectionsArgs = $value['sections'];
-            $pageSlug = $value['page']['menu_slug'];
+            $pageSlug = $value['page']['unique_page_slug'];
 
             $this->optionsPage->setPageArgs($value)->addOptionsPage();
             $this->registerSetting->init($settingArgs);
@@ -56,7 +56,7 @@ class Controller
      * for each section.
      *
      * @param array $sectionArgs Section arguments, including field arguments
-     * @param string $pageSlug   The page slug - defined as 'menu_slug' in $config['page']
+     * @param string $pageSlug   The page slug - defined as 'unique_page_slug' in $config['page']
      * @param string $optionName  The registered option name as defined by `register_setting()`
      */
     public function addSectionsAndFields($sectionArgs, $pageSlug, $optionName)

@@ -10,7 +10,7 @@ return [
             'page_title' => 'Carawebs Address',
             'menu_title' => 'Address & Contact Details',
             'capability' => 'manage_options',
-            'menu_slug' => 'carawebs-address-options-page',
+            'unique_page_slug' => 'carawebs-address-options-page',
         ],
         'sections' => [
             [

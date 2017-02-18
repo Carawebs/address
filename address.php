@@ -16,37 +16,40 @@ namespace Carawebs\Address;
 //
 use Carawebs\Address\Settings\Config;
 use Carawebs\Address\Settings\Controller;
-use Carawebs\Address\Settings\OptionsPage;
+use Carawebs\Address\Settings\AddOptionsPage;
 use Carawebs\Address\Settings\RegisterFields;
 use Carawebs\Address\Settings\RegisterSection;
 use Carawebs\Address\Settings\RegisterSetting;
+use Carawebs\Address\Settings\OptionsPageController;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 require 'vendor/autoload.php';
 
-$config = dirname(__FILE__) . '/settings-config.php';
-$settings = new Config($config);
+$optionsPageConfig = dirname(__FILE__) . '/options-page-config.php';
+$menuPageConfig = dirname(__FILE__) . '/menu-page-settings-config.php';
 
-$controller = new Controller(
-    new Config($config),
+
+$optionsPage = new OptionsPageController(
+    new Config($optionsPageConfig),
     new RegisterSetting(),
-    new OptionsPage(),
+    new AddOptionsPage(),
     new RegisterSection(),
     new RegisterFields()
 );
 
+// $controller = new Controller(
+//     new Config($config),
+//     new RegisterSetting(),
+//     new OptionsPage(),
+//     new RegisterSection(),
+//     new RegisterFields()
+// );
+
 //$register = new RegisterNewSetting($settings);
 
-add_action( 'cw_config_action', function() use ($settings, $controller) {
-    echo "<h2>\$controller</h2>";
-    var_dump($controller);
-    echo "<h2>Settings</h2>";
-    foreach ($settings->container as $key => $setting) {
-        echo "The key is $key and the settings are: <br>";
-        print json_encode($setting);
-    }
-    echo "<h2>\$settings['page one']</h2>";
-    var_dump($settings['page one']);
+add_action( 'cw_config_action', function() use ($optionsPage) {
+    echo "<h2>\$optionsPage Object</h2>";
+    var_dump($optionsPage);
 });
 
 /**

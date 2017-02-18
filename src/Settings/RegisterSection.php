@@ -40,10 +40,7 @@ class RegisterSection
      */
     public function defineSection($args) {
         //var_dump($args);
-        //echo "<h2>{$args['title']}</h2>";
-        // echo '<p>id: ' . $args['id'] . '</p>';             // id: eg_setting_section
-        // echo '<p>title: ' . $args['title'] . '</p>';       // title: Example settings section in reading
-        // echo '<p>callback: ' . $args['callback'] . '</p>'; // callback: eg_setting_section_callback_function
+        // An intro maybe?
 
     }
 
