@@ -5,6 +5,7 @@ return [
         'option_name' => 'carawebs_address',
         'option_group' => 'main'
     ],
+    'default_tab' => 'main',
     'page' => [
         'page_title' => 'Carawebs Address',
         'menu_title' => 'Address & Contact Details',
@@ -13,6 +14,7 @@ return [
     ],
     'sections' => [
         [
+            'tab' => 'Main',
             'option_name' => 'carawebs_address_main',
             'option_group' => 'main',
             'id' => 'main',
@@ -65,6 +67,7 @@ return [
             ]
         ],
         [
+            'tab' => 'Social Media',
             'option_name' => 'carawebs_address_social',
             'option_group' => 'main',
             'id' => 'social',

@@ -28,7 +28,7 @@ class RegisterSection
                 $section['id'],
                 $section['title'],
                 [$this, 'defineSection'],
-                $this->pageSlug // THIS MUST BE THE menu_slug AS DEFINED WHEN SETTING UP PAGE.
+                $section['tab']//$this->pageSlug // THIS MUST BE THE menu_slug AS DEFINED WHEN SETTING UP PAGE.
             );
         }
     }
@@ -39,11 +39,5 @@ class RegisterSection
      */
     public function defineSection($args) {
         echo $this->sectionArgs[$args['id']]['description'] ?? NULL;
-        // if($args['id'] === 'main') {
-        //     echo $this->sectionArgs[$args['id']]['description'] ?? NULL;
-        // };
-        // An intro maybe?
-
     }
-
 }

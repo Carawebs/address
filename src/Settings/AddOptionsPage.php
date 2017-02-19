@@ -35,12 +35,14 @@ class AddOptionsPage extends Page
         ?>
         <div class="wrap">
             <h2><?= $this->pageArguments['page_title']; ?></h2>
+            <h2 class="nav-tab-wrapper">
+                <?php $this->tabLinks($_GET["tab"] ?? NULL); ?>
+            </h2>
             <form method="post" action="options.php">
                 <?php
                 settings_fields( $this->optionGroup ); // Must be the option group defined with `register_setting()`
-                // settings_fields( 'main' ); // Must be the option group defined with `register_setting()`
-                do_settings_sections( $this->pageArguments['unique_page_slug'] );
-
+                do_settings_sections( 'main' );
+                // do_settings_sections( $this->pageArguments['unique_page_slug'] );
                 submit_button();
                 ?>
             </form>

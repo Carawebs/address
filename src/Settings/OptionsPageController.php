@@ -39,10 +39,8 @@ class OptionsPageController
         {
             $this->optionsPage->setPageArgs($this->config)->addOptionsPage();
             $this->pageSlug = $this->config['page']['unique_page_slug'];
-            $this->registerFields();
             $this->addSections();
-            // $this->registerFields();
-
+            $this->registerFields();
         }
 
         /**
@@ -58,26 +56,43 @@ class OptionsPageController
         public function addSections()
         {
             $sectionData = [];
+            static $i = 0;
             foreach ($this->config['sections'] as $section) {
                 $reg = [
                     'id' => $section['id'],
+                    'tab' => $section['tab'],
                     'title' => $section['title'],
                     'option_group' => $section['option_group'],
                     'option_name' => $section['option_name'],
                     'option_args' => $section['option_args'] ?? NULL,
                     'description' => $section['description'] ?? NULL
                 ];
-                $sectionData[$section['id']] = $reg;
+                // $sectionData[$section['id']] = $reg;
                 $this->registerSetting->init($reg);
-            }
 
-            $this->registerSection->setSectionArgs($sectionData, $this->pageSlug)->addSection();
+                if(isset($_GET['tab']) && $_GET['tab'] === preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($section['tab']))) {
+                    $sectionData[$section['id']] = $reg;
+                    //$this->registerSetting->init($reg);
+                    $this->registerSection->setSectionArgs($sectionData, $this->pageSlug)->addSection();
+                }
+                var_dump($sectionData);
+                var_dump($i);
+                $i++;
+            }
         }
 
         public function registerFields()
         {
             $fields = [];
             foreach ($this->config['sections'] as $section) {
+                // if (true === $this->optionsPage->tabCheck($section['tab'])) {
+                //     // Add option name and group to the field array
+                //     foreach ($section['fields'] as $field) {
+                //         $field['option_name'] = $section['option_name'];
+                //         $field['option_group'] = $section['option_group'];
+                //         $fields[$section['id']][] = $field;
+                //     }
+                // }
                 // Add option name and group to the field array
                 foreach ($section['fields'] as $field) {
                     $field['option_name'] = $section['option_name'];
