@@ -15,23 +15,22 @@ class RegisterSection
     }
 
     /**
-    * Run if a new sub menu page under the Settings menu is required.
+    * Register sections.
     */
     public function addSection() {
-
         add_action( 'admin_init', [$this, 'setupSection'] );
-
     }
 
     public function setupSection()
     {
-
-        add_settings_section(
-            $this->sectionArgs['id'],
-            $this->sectionArgs['title'],
-            [$this, 'defineSection'],
-            $this->pageSlug // THIS MUST BE THE menu_slug AS DEFINED WHEN SETTING UP PAGE.
-        );
+        foreach($this->sectionArgs as $section) {
+            add_settings_section(
+                $section['id'],
+                $section['title'],
+                [$this, 'defineSection'],
+                $this->pageSlug // THIS MUST BE THE menu_slug AS DEFINED WHEN SETTING UP PAGE.
+            );
+        }
     }
 
     /**
@@ -39,7 +38,10 @@ class RegisterSection
      * @return void
      */
     public function defineSection($args) {
-        //var_dump($args);
+        echo $this->sectionArgs[$args['id']]['description'] ?? NULL;
+        // if($args['id'] === 'main') {
+        //     echo $this->sectionArgs[$args['id']]['description'] ?? NULL;
+        // };
         // An intro maybe?
 
     }

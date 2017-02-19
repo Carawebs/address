@@ -38,7 +38,10 @@ class OptionsPageController
         public function setup()
         {
             $this->optionsPage->setPageArgs($this->config)->addOptionsPage();
-            $this->addSectionsAndFields();
+            $this->pageSlug = $this->config['page']['unique_page_slug'];
+            $this->registerFields();
+            $this->addSections();
+            // $this->registerFields();
 
         }
 
@@ -52,25 +55,36 @@ class OptionsPageController
         * @param string $pageSlug   The page slug - defined as 'unique_page_slug' in $config['page']
         * @param string $optionName  The registered option name as defined by `register_setting()`
         */
-        public function addSectionsAndFields()
+        public function addSections()
         {
-            $pageSlug = $this->config['page']['unique_page_slug'];
-            $fields = [];
+            $sectionData = [];
             foreach ($this->config['sections'] as $section) {
-                // Temp. Amend registerSetting
                 $reg = [
+                    'id' => $section['id'],
+                    'title' => $section['title'],
                     'option_group' => $section['option_group'],
                     'option_name' => $section['option_name'],
-                    'option_args' => $section['option_args'] ?? NULL
+                    'option_args' => $section['option_args'] ?? NULL,
+                    'description' => $section['description'] ?? NULL
                 ];
+                $sectionData[$section['id']] = $reg;
                 $this->registerSetting->init($reg);
-                $this->registerSection->setSectionArgs($section, $pageSlug)->addSection();
-                $fields[$section['id']] = $section['fields'];
             }
-            // Get all fields from each group, and build them together?
-            // $this->registerSection->setSectionArgs($section, $pageSlug)->addSection();
-            $this->registerFields->setArgs($fields, $pageSlug)->addFields();
-            // e.g.
-            // foreach()
+
+            $this->registerSection->setSectionArgs($sectionData, $this->pageSlug)->addSection();
+        }
+
+        public function registerFields()
+        {
+            $fields = [];
+            foreach ($this->config['sections'] as $section) {
+                // Add option name and group to the field array
+                foreach ($section['fields'] as $field) {
+                    $field['option_name'] = $section['option_name'];
+                    $field['option_group'] = $section['option_group'];
+                    $fields[$section['id']][] = $field;
+                }
+            }
+            $this->registerFields->setArgs($fields, $this->pageSlug)->addFields();
         }
     }

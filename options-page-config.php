@@ -17,6 +17,7 @@ return [
             'option_group' => 'main',
             'id' => 'main',
             'title' => 'Main Section',
+            'description' => 'This is the main section.',
             'fields' =>[
                 [
                     'type' => 'text',
@@ -68,6 +69,7 @@ return [
             'option_group' => 'main',
             'id' => 'social',
             'title' => 'Social Media',
+            'description' => 'The social stuff.',
             'fields' =>[
                 [
                     'type' => 'text',
