@@ -41,8 +41,9 @@ class AddOptionsPage extends Page
             <form method="post" action="options.php">
                 <?php
                 settings_fields( $this->optionGroup ); // Must be the option group defined with `register_setting()`
-                do_settings_sections( 'main' );
-                // do_settings_sections( $this->pageArguments['unique_page_slug'] );
+                //settings_fields( 'social_media' ); // Must be the option group defined with `register_setting()`
+
+                do_settings_sections( $this->pageArguments['unique_page_slug'] );
                 submit_button();
                 ?>
             </form>

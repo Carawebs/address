@@ -6,6 +6,12 @@ namespace Carawebs\Address\Settings;
 */
 abstract class Page
 {
+    public function sanitizeCallback($value)
+    {
+        // Get all values and return them so we don't overwrite fields on a different tab
+        // See: https://github.com/NateWr/simple-admin-pages/blob/master/classes/AdminPage.class.php #111
+        // ---------------------------------------------------------------------
+    }
 
     public function setPageArgs(array $args)
     {

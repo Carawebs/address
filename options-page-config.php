@@ -15,6 +15,7 @@ return [
     'sections' => [
         [
             'tab' => 'Main',
+            'is_tab' => true,
             'option_name' => 'carawebs_address_main',
             'option_group' => 'main',
             'id' => 'main',
@@ -25,7 +26,6 @@ return [
                     'type' => 'text',
                     'name' => 'address_line_1',
                     'title' => 'Address Line One',
-                    //'desc' => 'Enter data',
                     'default' => NULL,
                     'placeholder' => 'Type here'
                 ],

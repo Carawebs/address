@@ -24,12 +24,14 @@ class RegisterSection
     public function setupSection()
     {
         foreach($this->sectionArgs as $section) {
-            add_settings_section(
-                $section['id'],
-                $section['title'],
-                [$this, 'defineSection'],
-                $section['tab']//$this->pageSlug // THIS MUST BE THE menu_slug AS DEFINED WHEN SETTING UP PAGE.
-            );
+            if(isset($_GET['tab']) && $_GET['tab'] === preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($section['tab']))) {
+                add_settings_section(
+                    $section['id'],
+                    $section['title'],
+                    [$this, 'defineSection'],
+                    $this->pageSlug // THIS MUST BE THE menu_slug AS DEFINED WHEN SETTING UP PAGE.
+                );
+            }
         }
     }
 
