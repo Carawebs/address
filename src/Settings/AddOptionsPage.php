@@ -40,10 +40,25 @@ class AddOptionsPage extends Page
             </h2>
             <form method="post" action="options.php">
                 <?php
-                settings_fields( $this->optionGroup ); // Must be the option group defined with `register_setting()`
-                //settings_fields( 'social_media' ); // Must be the option group defined with `register_setting()`
+                // settings_fields( $this->optionGroup ); // Must be the option group defined with `register_setting()`
+                // do_settings_sections( $this->pageArguments['unique_page_slug'] );
+                // submit_button();
+                // @see http://wordpress.stackexchange.com/a/127499
+                ?>
+                <?php
+                // @NOTE: Conditionally display the field groups by tag. To display
+                // fields on differen tags, their parent section should have a different
+                // option group.
+                //
+                // @TODO: Work out how to build this programmatically.
+                if( $_GET['tab'] == 'social-media' ) {
+                    settings_fields( 'social' );
+                    do_settings_sections( $this->pageArguments['unique_page_slug'] );
+                } else if( $_GET['tab'] == 'main' ) {
+                    settings_fields( 'main' );
+                    do_settings_sections( $this->pageArguments['unique_page_slug'] );
 
-                do_settings_sections( $this->pageArguments['unique_page_slug'] );
+                }
                 submit_button();
                 ?>
             </form>

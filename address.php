@@ -23,7 +23,7 @@ use Carawebs\Address\Settings\RegisterSetting;
 use Carawebs\Address\Settings\OptionsPageController;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
-require 'vendor/autoload.php';
+require 'vendor/autoload.php'; // Add fallback
 
 $optionsPageConfig = dirname(__FILE__) . '/options-page-config.php';
 $menuPageConfig = dirname(__FILE__) . '/menu-page-settings-config.php';
@@ -36,16 +36,6 @@ $optionsPage = new OptionsPageController(
     new RegisterSection(),
     new RegisterFields()
 );
-
-// $controller = new Controller(
-//     new Config($config),
-//     new RegisterSetting(),
-//     new OptionsPage(),
-//     new RegisterSection(),
-//     new RegisterFields()
-// );
-
-//$register = new RegisterNewSetting($settings);
 
 add_action( 'cw_config_action', function() use ($optionsPage) {
     echo "<h2>\$optionsPage Object</h2>";

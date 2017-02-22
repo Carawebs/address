@@ -59,9 +59,9 @@ return [
                     'title' => 'Chooser',
                     'default' => NULL,
                     'multi_options' => [
-                        'One' => 'sygg5253',
-                        'Two' => '56t7hfgu',
-                        'Three' => 'ontgrprt7'
+                        'Good' => 'SYNERGY!',
+                        'Bad' => 'ECSTASY!',
+                        'Indifferent' => 'APOSTOSASY!'
                     ]
                 ]
             ]
@@ -69,7 +69,7 @@ return [
         [
             'tab' => 'Social Media',
             'option_name' => 'carawebs_address_social',
-            'option_group' => 'main',
+            'option_group' => 'social',
             'id' => 'social',
             'title' => 'Social Media',
             'description' => 'The social stuff.',

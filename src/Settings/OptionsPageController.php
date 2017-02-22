@@ -28,8 +28,6 @@ class OptionsPageController extends Controller
             $this->optionsPage = $optionsPage;
             $this->registerFields = $registerFields;
             $this->setup();
-            // var_dump($_POST);
-            // var_dump($this->getCurrentTab($_POST['_wp_http_referer']));
         }
 
         /**
@@ -39,10 +37,23 @@ class OptionsPageController extends Controller
         */
         public function setup()
         {
-            $this->optionsPage->setPageArgs($this->config)->addOptionsPage();
             $this->pageSlug = $this->config['page']['unique_page_slug'];
-            $this->addSections();
             $this->registerFields();
+            $this->addSections();
+            $this->optionsPage->setPageArgs($this->config)->addOptionsPage();
+        }
+
+        public function registerFields()
+        {
+            $fields = [];
+            foreach ($this->config['sections'] as $section) {
+                foreach ($section['fields'] as $field) {
+                    $field['option_name'] = $section['option_name'];
+                    $field['option_group'] = $section['option_group'];
+                    $fields[$section['id']][] = $field;
+                }
+            }
+            $this->registerFields->setArgs($fields, $this->pageSlug)->addFields();
         }
 
         /**
@@ -72,27 +83,5 @@ class OptionsPageController extends Controller
                 $this->registerSetting->init($reg);
             }
             $this->registerSection->setSectionArgs($sectionData, $this->pageSlug)->addSection();
-        }
-
-        public function registerFields()
-        {
-            $fields = [];
-            foreach ($this->config['sections'] as $section) {
-                // if(isset($_GET['tab']) && $_GET['tab'] === preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($section['tab']))) {
-                //     // Add option name and group to the field array
-                //     foreach ($section['fields'] as $field) {
-                //         $field['option_name'] = $section['option_name'];
-                //         $field['option_group'] = $section['option_group'];
-                //         $fields[$section['id']][] = $field;
-                //     }
-                // }
-                // Add option name and group to the field array
-                foreach ($section['fields'] as $field) {
-                    $field['option_name'] = $section['option_name'];
-                    $field['option_group'] = $section['option_group'];
-                    $fields[$section['id']][] = $field;
-                }
-            }
-            $this->registerFields->setArgs($fields, $this->pageSlug)->addFields();
         }
     }
