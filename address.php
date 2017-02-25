@@ -14,13 +14,7 @@ Domain Path:       /languages
 */
 namespace Carawebs\Address;
 //
-use Carawebs\Address\Settings\Config;
-use Carawebs\Address\Settings\Controller;
-use Carawebs\Address\Settings\AddOptionsPage;
-use Carawebs\Address\Settings\RegisterFields;
-use Carawebs\Address\Settings\RegisterSection;
-use Carawebs\Address\Settings\RegisterSetting;
-use Carawebs\Address\Settings\OptionsPageController;
+use Carawebs\Address\Settings\SettingsController;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 require 'vendor/autoload.php'; // Add fallback
@@ -29,13 +23,9 @@ $optionsPageConfig = dirname(__FILE__) . '/options-page-config.php';
 $menuPageConfig = dirname(__FILE__) . '/menu-page-settings-config.php';
 
 
-$optionsPage = new OptionsPageController(
-    new Config($optionsPageConfig),
-    new RegisterSetting(),
-    new AddOptionsPage(),
-    new RegisterSection(),
-    new RegisterFields()
-);
+// Settings Page
+$optionsPage = new SettingsController;
+$optionsPage->setOptionsPageArgs($optionsPageConfig)->initOptionsPage();
 
 add_action( 'cw_config_action', function() use ($optionsPage) {
     echo "<h2>\$optionsPage Object</h2>";

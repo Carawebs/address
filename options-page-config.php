@@ -61,16 +61,16 @@ return [
                     'multi_options' => [
                         'Good' => 'SYNERGY!',
                         'Bad' => 'ECSTASY!',
-                        'Indifferent' => 'APOSTOSASY!'
+                        'Indifferent' => 'APOSTOSASSY!'
                     ]
                 ]
             ]
         ],
         [
-            'tab' => 'Social',
+            'tab' => 'Social Media',
             'option_name' => 'carawebs_address_social',
-            'option_group' => 'social',
-            'id' => 'social',
+            'option_group' => 'social-media', // At the moment, this MUST be the slugified 'tab' value @TODO Fix this!!
+            'id' => 'social-media',
             'title' => 'Social Media',
             'description' => 'The social stuff.',
             'fields' =>[

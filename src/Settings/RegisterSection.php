@@ -22,15 +22,17 @@ class RegisterSection
         // add_action( 'admin_init', [$this, 'setupSection'] );
         add_action( 'admin_init', function() {
 
-            // If the $_GET['tab'] is set, loop through the sections and display the
-            // correct sections.
+            // If the $_GET['tab'] is set
             if(isset($_GET['tab'])) {
+                // Loop through the sections and add the correct sections.
                 foreach($this->sectionArgs as $section) {
+                    error_log(__FILE__. ", Line: ". __LINE__ . ":\n" . "Section: " . json_encode($section));
                     if($_GET['tab'] === preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($section['tab']))) {
                         $this->addSettingsSection($section);
                     }
                 }
             } else {
+                // Add the first section.
                 reset($this->sectionArgs);
                 $firstSectionKey = key($this->sectionArgs);
                 $firstSection = $this->sectionArgs[$firstSectionKey];
