@@ -67,7 +67,7 @@ return [
             ]
         ],
         [
-            'tab' => 'Social Media',
+            'tab' => 'Social',
             'option_name' => 'carawebs_address_social',
             'option_group' => 'social',
             'id' => 'social',
@@ -76,11 +76,24 @@ return [
             'fields' =>[
                 [
                     'type' => 'text',
-                    'name' => 'preee',
-                    'title' => 'Test',
-                    //'desc' => 'Enter data',
-                    'default' => NULL,
-                    'placeholder' => 'Type here'
+                    'name' => 'facebook',
+                    'title' => 'Facebook',
+                    'desc' => 'Enter the URL of your Facebook page',
+                    'placeholder' => ''
+                ],
+                [
+                    'type' => 'text',
+                    'name' => 'twitter',
+                    'title' => 'Twitter',
+                    'desc' => 'Enter the URL of your Twitter page',
+                    'placeholder' => ''
+                ],
+                [
+                    'type' => 'text',
+                    'name' => 'pinterest',
+                    'title' => 'Pinterest',
+                    'desc' => 'Enter the URL of your Pinterest',
+                    'placeholder' => ''
                 ],
             ],
         ],
